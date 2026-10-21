@@ -1,0 +1,49 @@
+{
+  "name": "flock",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @flock/web dev",
+    "worker:dev": "pnpm --filter @flock/worker dev",
+    "build": "pnpm -r --filter './packages/*' --filter @flock/worker --filter @flock/web build",
+    "start": "pnpm --filter @flock/web start",
+    "worker:start": "pnpm --filter @flock/worker start",
+    "db:generate": "pnpm --filter @flock/db generate",
+    "db:migrate": "pnpm --filter @flock/db migrate",
+    "db:seed": "pnpm --filter @flock/db seed",
+    "lint": "eslint .",
+    "typecheck": "pnpm -r typecheck && tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:unit": "vitest run --project unit",
+    "test:integration": "vitest run --project integration",
+    "test:e2e": "playwright test",
+    "telegram:set-webhook": "tsx scripts/set-telegram-webhook.ts"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@flock/core": "workspace:*",
+    "@flock/db": "workspace:*",
+    "@flock/payments": "workspace:*",
+    "@flock/telegram": "workspace:*",
+    "@grammyjs/types": "^5.0.0",
+    "@next/eslint-plugin-next": "16.4.2",
+    "@playwright/test": "1.56.1",
+    "@types/node": "^22.20.5",
+    "@types/pg": "^8.23.1",
+    "drizzle-orm": "0.45.4",
+    "esbuild": "^0.28.2",
+    "eslint": "^10.13.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "17.13.0",
+    "pg": "^8.23.1",
+    "stripe": "^23.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "6.0.3",
+    "typescript-eslint": "^8.72.0",
+    "vitest": "^5.0.5"
+  }
+}
