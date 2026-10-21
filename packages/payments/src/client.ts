@@ -12,7 +12,7 @@ export function createStripeClient(opts: StripeClientOptions): Stripe {
     maxNetworkRetries: 2,
     timeout: 20_000,
     telemetry: false,
-    appInfo: { name: "Flock", url: "https://useflock.co" },
+    appInfo: { name: "Flock", url: "https://app.useflock.com" },
     ...(opts.apiOverride ? { host: opts.apiOverride.host, port: opts.apiOverride.port, protocol: opts.apiOverride.protocol } : {}),
   });
 }

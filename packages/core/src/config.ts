@@ -43,7 +43,7 @@ const EnvSchema = z.object({
 
   RENEWAL_GRACE_HOURS: z.coerce.number().min(0).max(24 * 14).default(48),
   INVITE_LINK_TTL_HOURS: z.coerce.number().int().min(1).max(24 * 30).default(168),
-  SUPPORT_EMAIL: z.email().default("support@useflock.co"),
+  SUPPORT_EMAIL: z.email().default("support@useflock.com"),
   ADMIN_TELEGRAM_USER_IDS: csvInts,
   WORKER_CONCURRENCY: z.coerce.number().int().min(1).max(32).default(4),
 });

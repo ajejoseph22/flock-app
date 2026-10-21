@@ -16,8 +16,8 @@ Readiness terms (used throughout the docs):
 - ☐ Confirm in the Stripe dashboard that **Accounts v2** is available on the platform account. If it isn't, see D-003 for the v1 fallback.
 - ☐ Decide the Connect **dashboard and liability** setup. The code uses `dashboard: "full"`, with Stripe as fees and losses collector. Confirm this matches your Stripe agreement (D-003).
 - ☐ Two bots from @BotFather: `flock_dev_bot` (development) and the production bot. Set name, description, about text and userpic. Note that bot usernames are permanent.
-- ☐ Domain `useflock.co` registered, with DNS access.
-- ☐ Support mailbox `support@useflock.co`.
+- ☐ Domain `useflock.com` with DNS access. The app runs on `app.useflock.com`; the apex and `www` stay on Vercel for the marketing site.
+- ☐ Support mailbox `support@useflock.com`.
 - ☐ **Legal review** of `/terms` and `/privacy`. Both pages currently show a "Draft" notice on purpose. Remove `LegalDraftNote` only after review. Also decide entity, jurisdiction and governing law.
 - ☐ Decide prohibited-content policy for creators, and how you'll review new communities (Stripe and Telegram both have restricted categories).
 
@@ -37,9 +37,9 @@ Readiness terms (used throughout the docs):
 
   | Destination | URL | Events | Secret variable |
   |---|---|---|---|
-  | **Connected accounts**, snapshot | `https://useflock.co/api/webhooks/stripe/connect` | `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `checkout.session.expired`, `customer.subscription.*`, `invoice.paid`, `invoice.payment_succeeded`, `invoice.payment_failed`, `invoice.payment_action_required`, `invoice.marked_uncollectible`, `invoice.voided`, `charge.refunded`, `charge.dispute.created`, `charge.dispute.funds_withdrawn`, `charge.dispute.closed`, `account.updated` | `STRIPE_CONNECT_WEBHOOK_SECRET` |
-  | **Your account**, snapshot | `https://useflock.co/api/webhooks/stripe/platform` | `checkout.session.completed`, `customer.subscription.*`, `invoice.paid`, `invoice.payment_failed` | `STRIPE_PLATFORM_WEBHOOK_SECRET` |
-  | **Accounts v2**, thin events | `https://useflock.co/api/webhooks/stripe/accounts` | `v2.core.account.updated`, `v2.core.account[requirements].updated`, `v2.core.account[configuration.merchant].capability_status_updated` | `STRIPE_ACCOUNTS_WEBHOOK_SECRET` |
+  | **Connected accounts**, snapshot | `https://app.useflock.com/api/webhooks/stripe/connect` | `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `checkout.session.expired`, `customer.subscription.*`, `invoice.paid`, `invoice.payment_succeeded`, `invoice.payment_failed`, `invoice.payment_action_required`, `invoice.marked_uncollectible`, `invoice.voided`, `charge.refunded`, `charge.dispute.created`, `charge.dispute.funds_withdrawn`, `charge.dispute.closed`, `account.updated` | `STRIPE_CONNECT_WEBHOOK_SECRET` |
+  | **Your account**, snapshot | `https://app.useflock.com/api/webhooks/stripe/platform` | `checkout.session.completed`, `customer.subscription.*`, `invoice.paid`, `invoice.payment_failed` | `STRIPE_PLATFORM_WEBHOOK_SECRET` |
+  | **Accounts v2**, thin events | `https://app.useflock.com/api/webhooks/stripe/accounts` | `v2.core.account.updated`, `v2.core.account[requirements].updated`, `v2.core.account[configuration.merchant].capability_status_updated` | `STRIPE_ACCOUNTS_WEBHOOK_SECRET` |
 - ☐ Branding: platform icon, colour, and statement descriptor guidance for creators.
 - ☐ Check that Stripe Tax and receipts settings match what creators expect. Receipts are sent by the connected account.
 - ◐ **Integration run in test mode.** Go through the full flow below with a real test-mode account and record the results in the PR:
@@ -56,7 +56,7 @@ Readiness terms (used throughout the docs):
 ## 3. Telegram configuration
 
 - ☐ Production bot token in `TELEGRAM_BOT_TOKEN`, its username in `TELEGRAM_BOT_USERNAME`, and a random `TELEGRAM_WEBHOOK_SECRET` (for example from `openssl rand -hex 32`).
-- ☐ After the first deploy, run `pnpm telegram:set-webhook` with production env. It registers `https://useflock.co/api/webhooks/telegram` with the secret token and the allowed updates (`message`, `callback_query`, `my_chat_member`, `chat_member`, `chat_join_request`), and sets the bot commands. Check the result with `pnpm telegram:set-webhook --info`.
+- ☐ After the first deploy, run `pnpm telegram:set-webhook` with production env. It registers `https://app.useflock.com/api/webhooks/telegram` with the secret token and the allowed updates (`message`, `callback_query`, `my_chat_member`, `chat_member`, `chat_join_request`), and sets the bot commands. Check the result with `pnpm telegram:set-webhook --info`.
 - ◐ **Integration run with a real bot:**
   1. Sign in from a phone and from desktop.
   2. Connect a private channel and a private supergroup.
@@ -70,14 +70,14 @@ Readiness terms (used throughout the docs):
 - ☐ Project with three services: **Postgres** (managed; enable backups), **web**, and **worker**. Both web and worker build from the repo root. Set each service's "Config as code" path to `apps/web/railway.json` or `apps/worker/railway.json`.
 - ☐ Variables on web and worker. Both need the same set, from `.env.example`. Set:
   - `FLOCK_ENV=production`
-  - `APP_URL=https://useflock.co`
+  - `APP_URL=https://app.useflock.com`
   - `TELEGRAM_MODE=webhook`
   - `DATABASE_URL` as a reference to the Railway Postgres variable
 
   Leave unset: `TELEGRAM_API_ROOT` and `STRIPE_API_*` (they are ignored in production anyway).
-- ☐ Custom domain `useflock.co` on the **web** service. Add the DNS records Railway shows. HTTPS is provisioned automatically.
+- ☐ Custom domain `app.useflock.com` on the **web** service. Add the DNS records Railway shows. HTTPS is provisioned automatically.
 - ☐ The first deploy runs `pnpm db:migrate` as pre-deploy. Confirm in the deploy logs.
-- ☐ Health checks: web `/api/health` (DB), worker `/health` (job loop and DB). Add an external uptime monitor on `https://useflock.co/api/health?worker=1`. It fails if no worker heartbeat in 2 minutes.
+- ☐ Health checks: web `/api/health` (DB), worker `/health` (job loop and DB). Add an external uptime monitor on `https://app.useflock.com/api/health?worker=1`. It fails if no worker heartbeat in 2 minutes.
 - ☐ `ADMIN_TELEGRAM_USER_IDS` set to your Telegram user ID, so you can open `/admin`.
 - ☐ Log drain or alerts on `level>=50` (error) lines. Webhook signature failures log at warn.
 

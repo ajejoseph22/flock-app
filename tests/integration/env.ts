@@ -13,6 +13,6 @@ export const TEST_ENV = {
   STRIPE_PLATFORM_WEBHOOK_SECRET: "whsec_test_platform",
   STRIPE_ACCOUNTS_WEBHOOK_SECRET: "whsec_test_accounts",
   RENEWAL_GRACE_HOURS: "48",
-  SUPPORT_EMAIL: "support@useflock.co",
+  SUPPORT_EMAIL: "support@useflock.com",
 } as const;
 export const BOT_ID = 7000000001;

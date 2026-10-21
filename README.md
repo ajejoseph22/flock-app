@@ -1,6 +1,6 @@
 # Flock
 
-Paid memberships for private Telegram channels and groups ([useflock.co](https://useflock.co)).
+Paid memberships for private Telegram channels and groups ([useflock.com](https://useflock.com); the app runs at [app.useflock.com](https://app.useflock.com)).
 
 Creators connect a Telegram chat and their own Stripe account, set a monthly price, and share one link. Members sign in with Telegram and pay on Stripe Checkout. The Flock bot then:
 

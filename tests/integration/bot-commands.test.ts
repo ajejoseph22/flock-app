@@ -22,7 +22,7 @@ describe("bot commands", () => {
       expect(m.text).not.toMatch(/checkout|stripe\.com\/pay|buy\.stripe/i);
       expect(m.reply_markup).toBeUndefined();
     }
-    expect((await send(id, "/support")).text).toContain("support@useflock.co");
+    expect((await send(id, "/support")).text).toContain("support@useflock.com");
   });
 
   it("/status lists memberships", async () => {

@@ -152,7 +152,7 @@ async function handleStart(deps: Deps, from: { id: number; username: string | nu
       [
         "<b>Sign in to Flock?</b>",
         "",
-        "Confirm only if <b>you</b> just started signing in on useflock.co. Never confirm a sign-in link someone sent you: it would give them access to your Flock account.",
+        `Confirm only if <b>you</b> just started signing in on ${tgEscape(new URL(deps.config.appUrl).host)}. Never confirm a sign-in link someone sent you: it would give them access to your Flock account.`,
       ].join("\n"),
       { buttons: [[{ text: "✅ Confirm sign-in", callbackData: `${CB_CONFIRM}${claimed.id}` }], [{ text: "Not me", callbackData: `${CB_REJECT}${claimed.id}` }]] },
     );

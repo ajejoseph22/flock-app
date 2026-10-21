@@ -54,7 +54,7 @@
 ## 7. Compliance notes and open questions
 
 **Telegram.**
-- The bot does not sell anything inside Telegram and never sends Checkout/Portal links. Payment happens on useflock.co. The bot's `/status` points users to the Flock account page by URL text for membership management.
+- The bot does not sell anything inside Telegram and never sends Checkout/Portal links. Payment happens on app.useflock.com. The bot's `/status` points users to the Flock account page by URL text for membership management.
 - *Open question (founder/legal):* Telegram's rules require Stars for digital goods and services sold **in bots and Mini Apps**. Flock's storefront is an independent website, which is the model used by established services in this category, but Telegram can change its policies. Mitigation: keep the bot free of payment flows and plan a compliant Stars flow (P2).
 - Bot must respond to `/paysupport` only if Stars are introduced; not applicable now.
 

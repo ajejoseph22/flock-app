@@ -24,7 +24,7 @@ export default function ContactPage() {
         To cancel or update your card, go to <a href="/account">My memberships</a>.
       </p>
       <h2>Creators</h2>
-      <p>Include your community&apos;s address (useflock.co/join/…) so we can find it quickly. Never send us your Stripe keys or passwords.</p>
+      <p>Include your community&apos;s address (app.useflock.com/join/…) so we can find it quickly. Never send us your Stripe keys or passwords.</p>
     </Prose>
   );
 }

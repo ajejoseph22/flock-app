@@ -29,7 +29,7 @@ test.describe("marketing site", () => {
       await expect(page.getByText(/has not yet been reviewed by a lawyer/)).toBeVisible();
     }
     await page.goto("/contact");
-    await expect(page.getByRole("link", { name: "support@useflock.co" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "support@useflock.com" })).toBeVisible();
   });
 
   test("unknown membership pages 404", async ({ page }) => {

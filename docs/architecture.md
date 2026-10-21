@@ -111,7 +111,7 @@ All environment variables are parsed by Zod in `packages/core/src/config.ts` at 
 - `web`: build `pnpm install --frozen-lockfile && pnpm --filter @flock/web... build`; pre-deploy `pnpm db:migrate`; start `pnpm --filter @flock/web start`; health `/api/health`.
 - `worker`: build `pnpm --filter @flock/worker... build`; start `node apps/worker/dist/main.js`; health `/health` on `$PORT`.
 - Postgres: Railway managed Postgres 16 with daily backups.
-- Domain: `useflock.co` → web service (CNAME/ALIAS per Railway instructions), HTTPS auto-provisioned.
+- Domain: `app.useflock.com` → web service (the marketing site at `useflock.com` is hosted separately on Vercel) (CNAME/ALIAS per Railway instructions), HTTPS auto-provisioned.
 
 ## 8. Scaling notes
 

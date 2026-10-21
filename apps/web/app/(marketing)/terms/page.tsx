@@ -11,7 +11,7 @@ export default function TermsPage() {
     <Prose title="Terms of Service" updated="October 21, 2026">
       <LegalDraftNote />
       <p>
-        These terms cover your use of Flock (useflock.co), a service that lets creators sell memberships to private Telegram channels and groups. By using
+        These terms cover your use of Flock (useflock.com), a service that lets creators sell memberships to private Telegram channels and groups. By using
         Flock you agree to them.
       </p>
       <h2>What Flock does</h2>
