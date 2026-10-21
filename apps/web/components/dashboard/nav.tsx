@@ -27,7 +27,7 @@ export function DashboardNav({ setupIncomplete }: { setupIncomplete: boolean }) 
             aria-current={active ? "page" : undefined}
             className={cn(
               "flex items-center gap-2 rounded-md px-3 py-2 text-sm whitespace-nowrap transition-colors",
-              active ? "bg-primary-soft font-medium text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground",
+              active ? "bg-primary-soft font-medium text-accent" : "text-muted-foreground hover:bg-muted hover:text-foreground",
             )}
           >
             <item.icon className="size-4" aria-hidden />

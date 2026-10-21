@@ -11,7 +11,7 @@ export default function PricingPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
       <div className="max-w-2xl">
-        <h1 className="text-4xl font-semibold tracking-tight">Simple pricing</h1>
+        <h1 className="text-4xl font-display font-bold tracking-[-0.025em]">Simple pricing</h1>
         <p className="mt-3 text-lg text-muted-foreground">
           Flock is free during early access. When paid plans launch, existing creators get advance notice. Flock never takes a percentage of your sales.
         </p>
@@ -24,7 +24,7 @@ export default function PricingPage() {
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold">{p.name}</h2>
                 {isBeta ? (
-                  <span className="rounded-full bg-primary-soft px-2 py-0.5 text-xs font-medium text-primary">Available now</span>
+                  <span className="rounded-full bg-primary-soft px-2 py-0.5 text-xs font-medium text-accent">Available now</span>
                 ) : (
                   <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">After early access</span>
                 )}
@@ -37,7 +37,7 @@ export default function PricingPage() {
               <ul className="flex flex-col gap-2 text-sm">
                 {p.features.map((f) => (
                   <li key={f} className="flex gap-2">
-                    <Check className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
+                    <Check className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
                     {f}
                   </li>
                 ))}

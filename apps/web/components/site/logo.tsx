@@ -1,19 +1,37 @@
 import Link from "next/link";
 
+// Brand mark: three birds rising in formation on an ember tile. Source SVGs: useflock.com/brand/.
+const BIRD = "M-1 .36C-.64 .02-.3-.3 0-.42C.3-.3.64.02 1 .36C.6.26.3.22 0 .22C-.3.22-.6.26-1 .36Z";
+const WORDMARK =
+  "M88 0V-330H12V-435L166 -425V-433Q110 -440 80.5 -461Q51 -482 40 -509.5Q29 -537 29 -562Q29 -606 52 -639Q75 -672 116.5 -690Q158 -708 211 -708Q255 -708 289.5 -696Q324 -684 352 -660L340 -527Q312 -548 287 -558.5Q262 -569 235 -569Q203 -569 183.5 -553.5Q164 -538 164 -508Q164 -490 173 -475Q182 -460 201 -451Q220 -442 249 -442H347V-330H230V0Z M383 0V-695H527V0Z M828 14Q753 14 694.5 -16.5Q636 -47 603.5 -108Q571 -169 571 -262Q571 -357 605 -418Q639 -479 697.5 -509Q756 -539 829 -539Q905 -539 963 -508.5Q1021 -478 1053.5 -416.5Q1086 -355 1086 -262Q1086 -166 1052 -105Q1018 -44 959.5 -15Q901 14 828 14ZM831 -94Q866 -94 890 -113Q914 -132 927 -168Q940 -204 940 -254Q940 -309 926 -346.5Q912 -384 886.5 -404.5Q861 -425 825 -425Q791 -425 766.5 -406Q742 -387 729.5 -350.5Q717 -314 717 -263Q717 -184 747 -139Q777 -94 831 -94Z M1376 14Q1308 14 1258.5 -7Q1209 -28 1177 -65.5Q1145 -103 1130 -152Q1115 -201 1115 -257Q1115 -314 1130 -364.5Q1145 -415 1176 -454.5Q1207 -494 1256.5 -516.5Q1306 -539 1374 -539Q1454 -539 1504.5 -508.5Q1555 -478 1576 -429.5Q1597 -381 1590 -325L1464 -314Q1465 -351 1454 -375.5Q1443 -400 1422 -412.5Q1401 -425 1371 -425Q1347 -425 1326.5 -416Q1306 -407 1291 -387.5Q1276 -368 1268 -337.5Q1260 -307 1260 -264Q1260 -209 1274 -171.5Q1288 -134 1314.5 -114.5Q1341 -95 1378 -95Q1418 -95 1439.5 -113.5Q1461 -132 1469 -160.5Q1477 -189 1473 -219L1606 -212Q1611 -167 1600 -126.5Q1589 -86 1561 -54Q1533 -22 1487 -4Q1441 14 1376 14Z M1643 0V-695H1784V-323Q1820 -339 1848.5 -362.5Q1877 -386 1897.5 -414Q1918 -442 1930.5 -470.5Q1943 -499 1950 -525H2114Q2104 -487 2083 -449.5Q2062 -412 2031 -379.5Q2000 -347 1959.5 -321Q1919 -295 1871 -278V-270Q1933 -279 1973.5 -270.5Q2014 -262 2037.5 -241Q2061 -220 2074 -189.5Q2087 -159 2094 -122L2118 0H1962L1950 -86Q1945 -121 1935.5 -150.5Q1926 -180 1902 -197.5Q1878 -215 1830 -215H1784V0Z";
+
+function Birds() {
+  return (
+    <g transform="translate(-2.5 1)" className="fill-primary-foreground">
+      <path transform="translate(19 45) scale(8.5)" d={BIRD} />
+      <path transform="translate(31.5 33) scale(11)" d={BIRD} />
+      <path transform="translate(45.5 20) scale(13.5)" d={BIRD} />
+    </g>
+  );
+}
+
 export function LogoMark({ className = "size-7" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 32 32" className={className} aria-hidden>
-      <rect width="32" height="32" rx="8" className="fill-primary" />
-      <path d="M8 19.5c3-1 5.5-3.6 6.6-7.5 1.4 3.2 4.4 5.4 9.4 5.9-3.4 1.6-6.6 4.4-8.4 7.6-1.6-3-4.2-5.2-7.6-6Z" className="fill-primary-foreground" />
+    <svg viewBox="0 0 64 64" className={className} aria-hidden>
+      <rect width="64" height="64" rx="15" className="fill-primary" />
+      <Birds />
     </svg>
   );
 }
 
 export function Logo({ href = "/" }: { href?: string }) {
   return (
-    <Link href={href} className="flex items-center gap-2 font-semibold tracking-tight" aria-label="Flock home">
-      <LogoMark />
-      <span className="text-lg">Flock</span>
+    <Link href={href} className="flex items-center rounded-md" aria-label="Flock home">
+      <svg viewBox="0 0 252 64" className="h-7 w-auto" aria-hidden>
+        <rect width="64" height="64" rx="15" className="fill-primary" />
+        <Birds />
+        <path transform="translate(80 59) scale(.08)" d={WORDMARK} fill="currentColor" />
+      </svg>
     </Link>
   );
 }

@@ -30,7 +30,7 @@ export default async function AccountPage() {
         </div>
       </header>
       <main id="main" className="mx-auto w-full max-w-3xl flex-1 px-4 py-10 sm:px-6">
-        <h1 className="text-2xl font-semibold tracking-tight">My memberships</h1>
+        <h1 className="text-2xl font-display font-bold tracking-[-0.025em]">My memberships</h1>
         <p className="mt-1 text-sm text-muted-foreground">Signed in as {displayTelegramName(user)}. Cancel or change your card any time through Stripe.</p>
 
         <div className="mt-6 flex flex-col gap-4">
@@ -88,7 +88,7 @@ export default async function AccountPage() {
         </div>
         <p className="mt-10 text-sm text-muted-foreground">
           Run a community yourself?{" "}
-          <Link href="/dashboard" className="text-primary underline">
+          <Link href="/dashboard" className="text-accent underline">
             Open the creator dashboard
           </Link>
         </p>

@@ -54,12 +54,12 @@ export default async function JoinPage({ params, searchParams }: { params: Param
             // eslint-disable-next-line @next/next/no-img-element -- creator-supplied https URL; no remote image allowlist
             <img src={community.avatarUrl} alt="" className="size-20 rounded-2xl object-cover" referrerPolicy="no-referrer" />
           ) : (
-            <div className="flex size-20 items-center justify-center rounded-2xl bg-primary-soft text-3xl font-semibold text-primary" aria-hidden>
+            <div className="flex size-20 items-center justify-center rounded-2xl bg-primary-soft text-3xl font-semibold text-accent" aria-hidden>
               {community.name.slice(0, 1).toUpperCase()}
             </div>
           )}
           <div>
-            <h1 className="text-3xl font-semibold tracking-tight text-balance">{community.name}</h1>
+            <h1 className="text-3xl font-display font-bold tracking-[-0.025em] text-balance">{community.name}</h1>
             <p className="mt-1 text-sm text-muted-foreground">by {data.creatorName}</p>
           </div>
           {data.chatType && (
@@ -87,7 +87,7 @@ export default async function JoinPage({ params, searchParams }: { params: Param
             <ul className="flex flex-col gap-2 text-sm">
               {community.benefits.map((b) => (
                 <li key={b} className="flex gap-2">
-                  <Check className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
+                  <Check className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
                   {b}
                 </li>
               ))}

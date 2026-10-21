@@ -90,7 +90,7 @@ export function LoginFlow({ returnTo }: { returnTo: string | null }) {
     <Card className="w-full max-w-md">
       <CardContent className="flex flex-col gap-5">
         <div className="flex flex-col gap-1 text-center">
-          <h1 className="text-xl font-semibold tracking-tight">Sign in with Telegram</h1>
+          <h1 className="text-xl font-display font-bold tracking-[-0.025em]">Sign in with Telegram</h1>
           <p className="text-sm text-muted-foreground">Open the Flock bot, then tap Confirm.</p>
         </div>
 
