@@ -33,7 +33,7 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ u
       </Link>
       <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">{displayTelegramName(detail.user)}</h1>
+          <h1 className="text-2xl font-display font-bold tracking-[-0.025em]">{displayTelegramName(detail.user)}</h1>
           <p className="text-sm text-muted-foreground">
             {detail.user.telegramUsername ? `@${detail.user.telegramUsername} · ` : ""}Telegram ID {detail.user.telegramUserId}
           </p>

@@ -3,48 +3,51 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: oklch(0.99 0.003 180);
-  --foreground: oklch(0.21 0.02 230);
-  --muted: oklch(0.96 0.006 200);
-  --muted-foreground: oklch(0.48 0.02 230);
-  --card: oklch(1 0 0);
+  /* Flock brand tokens: ember is a fill (ink text on it); accent is ember as text. */
+  --background: #f5f8fb;
+  --foreground: #0e1726;
+  --muted: #eaf0f6;
+  --muted-foreground: #5a6678;
+  --card: #ffffff;
   --card-foreground: var(--foreground);
-  --border: oklch(0.91 0.01 210);
-  --input: oklch(0.88 0.012 210);
-  --primary: oklch(0.52 0.1 185);
-  --primary-hover: oklch(0.46 0.095 185);
-  --primary-foreground: oklch(0.99 0.005 180);
-  --primary-soft: oklch(0.95 0.035 185);
-  --ring: oklch(0.6 0.11 185);
-  --success: oklch(0.52 0.13 150);
-  --success-soft: oklch(0.95 0.04 150);
-  --warning: oklch(0.55 0.13 70);
-  --warning-soft: oklch(0.96 0.05 85);
-  --danger: oklch(0.55 0.19 25);
-  --danger-soft: oklch(0.96 0.03 25);
+  --border: #d9e1ea;
+  --input: #7d8a9e;
+  --primary: #ff6436;
+  --primary-hover: #f2552a;
+  --primary-foreground: #0e1726;
+  --primary-soft: #ffe8df;
+  --accent: #b93a10;
+  --ring: #0e1726;
+  --success: #2a7550;
+  --success-soft: #e3f4ea;
+  --warning: #8c5a0e;
+  --warning-soft: #fbf0dc;
+  --danger: #c8283c;
+  --danger-soft: #fbe6e8;
   --radius: 0.625rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: oklch(0.17 0.012 230);
-    --foreground: oklch(0.95 0.006 200);
-    --muted: oklch(0.23 0.014 230);
-    --muted-foreground: oklch(0.72 0.015 220);
-    --card: oklch(0.205 0.013 230);
-    --border: oklch(0.3 0.015 230);
-    --input: oklch(0.36 0.016 230);
-    --primary: oklch(0.72 0.11 185);
-    --primary-hover: oklch(0.78 0.1 185);
-    --primary-foreground: oklch(0.18 0.02 220);
-    --primary-soft: oklch(0.28 0.045 185);
-    --ring: oklch(0.72 0.11 185);
-    --success: oklch(0.74 0.14 150);
-    --success-soft: oklch(0.27 0.045 150);
-    --warning: oklch(0.8 0.13 80);
-    --warning-soft: oklch(0.29 0.05 80);
-    --danger: oklch(0.72 0.16 25);
-    --danger-soft: oklch(0.29 0.06 25);
+    --background: #0b1220;
+    --foreground: #e8eef5;
+    --muted: #16213a;
+    --muted-foreground: #93a1b5;
+    --card: #121b2b;
+    --border: #233046;
+    --input: #62728e;
+    --primary: #ff6436;
+    --primary-hover: #ff7a50;
+    --primary-foreground: #0e1726;
+    --primary-soft: #3a1a10;
+    --accent: #ff8a5c;
+    --ring: #ff8a5c;
+    --success: #5fc48a;
+    --success-soft: #12301f;
+    --warning: #f0b54a;
+    --warning-soft: #33260c;
+    --danger: #ff7a86;
+    --danger-soft: #3a1418;
   }
 }
 
@@ -61,6 +64,7 @@
   --color-primary-hover: var(--primary-hover);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-soft: var(--primary-soft);
+  --color-accent: var(--accent);
   --color-ring: var(--ring);
   --color-success: var(--success);
   --color-success-soft: var(--success-soft);
@@ -71,6 +75,7 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+  --font-display: var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }

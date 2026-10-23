@@ -10,7 +10,7 @@ export function ChatStatus({ chat }: { chat: typeof telegramChats.$inferSelect }
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-3">
-        <span className="flex size-10 items-center justify-center rounded-full bg-primary-soft text-primary">
+        <span className="flex size-10 items-center justify-center rounded-full bg-primary-soft text-accent">
           <Icon className="size-5" aria-hidden />
         </span>
         <div className="flex-1">

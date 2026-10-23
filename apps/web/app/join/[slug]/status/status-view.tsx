@@ -103,7 +103,7 @@ export function StatusView(props: { intentId: string; initial: View; communityNa
             <Title>Approving your join request…</Title>
             <p className="text-sm text-muted-foreground">This takes a few seconds.</p>
             {view.inviteLink && (
-              <a href={view.inviteLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary underline">
+              <a href={view.inviteLink} target="_blank" rel="noopener noreferrer" className="text-sm text-accent underline">
                 Reopen the invite link
               </a>
             )}
@@ -166,7 +166,7 @@ export function StatusView(props: { intentId: string; initial: View; communityNa
 
 function Title({ children }: { children: React.ReactNode }) {
   return (
-    <h1 className="text-xl font-semibold tracking-tight" data-testid="status-title">
+    <h1 className="text-xl font-display font-bold tracking-[-0.025em]" data-testid="status-title">
       {children}
     </h1>
   );

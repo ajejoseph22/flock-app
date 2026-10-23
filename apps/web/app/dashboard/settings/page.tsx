@@ -124,7 +124,7 @@ export default async function SettingsPage() {
             {s.merchant ? (
               <>
                 <StripeContinueButtons showContinue={ms.state !== "ready" && ms.state !== "rejected"} />
-                <a href="https://dashboard.stripe.com" target="_blank" rel="noopener noreferrer" className="inline-flex w-fit items-center gap-1 text-sm text-primary underline">
+                <a href="https://dashboard.stripe.com" target="_blank" rel="noopener noreferrer" className="inline-flex w-fit items-center gap-1 text-sm text-accent underline">
                   Open your Stripe dashboard <ExternalLink className="size-3.5" aria-hidden />
                 </a>
                 <p className="text-xs text-muted-foreground">

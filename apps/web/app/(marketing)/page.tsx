@@ -34,7 +34,7 @@ export default function HomePage() {
         <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:py-28">
           <div className="flex flex-col gap-6">
             <p className="w-fit rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">Now in early access, free to use</p>
-            <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-5xl">Your Telegram community. Your subscription business.</h1>
+            <h1 className="text-4xl font-display font-bold tracking-[-0.025em] text-balance sm:text-5xl">Your Telegram community. Your subscription business.</h1>
             <p className="max-w-xl text-lg text-muted-foreground text-pretty">
               Charge a monthly membership for your private Telegram channel or group. Flock takes payments through your Stripe account, sends each member a
               personal invite, and removes them automatically when their membership ends.
@@ -53,13 +53,13 @@ export default function HomePage() {
       </section>
 
       <section id="how-it-works" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6">
-        <h2 className="text-3xl font-semibold tracking-tight">Live in four steps</h2>
+        <h2 className="text-3xl font-display font-bold tracking-[-0.025em]">Live in four steps</h2>
         <p className="mt-2 max-w-2xl text-muted-foreground">Set up takes a few minutes. Stripe may ask for identity details before you can accept payments.</p>
         <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
             <li key={s.title} className="flex flex-col gap-3 rounded-lg border bg-card p-5">
               <div className="flex items-center gap-3">
-                <span className="flex size-8 items-center justify-center rounded-full bg-primary-soft text-sm font-semibold text-primary">{i + 1}</span>
+                <span className="flex size-8 items-center justify-center rounded-full bg-primary-soft text-sm font-semibold text-accent">{i + 1}</span>
                 <s.icon className="size-5 text-muted-foreground" aria-hidden />
               </div>
               <h3 className="font-medium">{s.title}</h3>
@@ -71,12 +71,12 @@ export default function HomePage() {
 
       <section className="border-y bg-muted/50">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-          <h2 className="text-3xl font-semibold tracking-tight">Access control you don&apos;t have to babysit</h2>
+          <h2 className="text-3xl font-display font-bold tracking-[-0.025em]">Access control you don&apos;t have to babysit</h2>
           <p className="mt-2 max-w-2xl text-muted-foreground">The hard part of a paid community is keeping the member list honest. That&apos;s what Flock is built around.</p>
           <div className="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((f) => (
               <div key={f.title} className="flex flex-col gap-2">
-                <f.icon className="size-5 text-primary" aria-hidden />
+                <f.icon className="size-5 text-accent" aria-hidden />
                 <h3 className="font-medium">{f.title}</h3>
                 <p className="text-sm text-muted-foreground">{f.body}</p>
               </div>
@@ -86,7 +86,7 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-3xl px-4 py-20 sm:px-6">
-        <h2 className="text-3xl font-semibold tracking-tight">Questions</h2>
+        <h2 className="text-3xl font-display font-bold tracking-[-0.025em]">Questions</h2>
         <dl className="mt-8 divide-y rounded-lg border bg-card">
           {faqs.map((f) => (
             <div key={f.q} className="p-5">
@@ -100,7 +100,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-4 pb-24 sm:px-6">
         <div className="flex flex-col items-start gap-4 rounded-xl bg-primary px-6 py-10 text-primary-foreground sm:flex-row sm:items-center sm:justify-between sm:px-10">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight">Turn your channel into a membership</h2>
+            <h2 className="text-2xl font-display font-bold tracking-[-0.025em]">Turn your channel into a membership</h2>
             <p className="mt-1 opacity-90">Free during early access. No transaction fees from Flock.</p>
           </div>
           <Link href="/login?returnTo=%2Fdashboard" className={buttonClasses("outline", "lg", "border-transparent text-foreground")}>

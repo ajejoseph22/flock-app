@@ -105,6 +105,7 @@ export async function onboardCreator(page: Page, opts: { creator: TgUser; slug: 
   await request.post(`${TELEGRAM_MOCK_URL}/_mock/chat`, {
     data: { id: chatId, type: chatType === "channel" ? "channel" : "supergroup", title: `${opts.name} chat`, ownerId: opts.creator.id },
   });
+  await page.getByTestId("has-chat-yes").click();
   await page.getByRole("button", { name: chatType === "channel" ? /Private channel/ : /Private group/ }).click();
   await expect(page.getByTestId("add-bot-link")).toBeVisible();
   await sendUpdate(request, {

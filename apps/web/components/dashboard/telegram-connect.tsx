@@ -1,6 +1,6 @@
 "use client";
 
-import { ExternalLink, Loader2, Megaphone, MessagesSquare } from "lucide-react";
+import { ArrowLeft, CircleCheck, ExternalLink, Loader2, Megaphone, MessagesSquare, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
 import { startTelegramConnectionAction } from "@/app/dashboard/actions";
@@ -16,6 +16,8 @@ export function TelegramConnect({ botUsername }: { botUsername: string }) {
   const [status, setStatus] = useState<Status | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // First-time creators may not have a chat yet, so ask before showing the connect flow.
+  const [stage, setStage] = useState<"ask" | "create" | "connect">("ask");
 
   const begin = (chatType: "channel" | "group") =>
     startTransition(async () => {
@@ -79,6 +81,57 @@ export function TelegramConnect({ botUsername }: { botUsername: string }) {
     );
   }
 
+  if (stage === "ask" && !status && !error) {
+    return (
+      <div className="flex flex-col gap-4">
+        <p className="text-sm text-muted-foreground">Do you already have a Telegram channel or group for your members?</p>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Button variant="outline" className={choiceClasses} onClick={() => setStage("connect")} data-testid="has-chat-yes">
+            <span className="flex items-center gap-2 font-medium">
+              <CircleCheck aria-hidden /> Yes, I have one
+            </span>
+            <span className="text-xs font-normal text-muted-foreground">Connect it to Flock now.</span>
+          </Button>
+          <Button variant="outline" className={choiceClasses} onClick={() => setStage("create")} data-testid="has-chat-no">
+            <span className="flex items-center gap-2 font-medium">
+              <Plus aria-hidden /> Not yet
+            </span>
+            <span className="text-xs font-normal text-muted-foreground">We&apos;ll show you how to start one. It takes a minute.</span>
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  if (stage === "create") {
+    return (
+      <div className="flex flex-col gap-4">
+        <p className="text-sm font-medium">Start a private chat in Telegram</p>
+        <ol className="flex list-decimal flex-col gap-2 pl-5 text-sm">
+          <li>
+            Open Telegram and tap <strong>New Channel</strong> or <strong>New Group</strong>. On a phone, it&apos;s under the pencil icon.
+          </li>
+          <li>
+            Pick a channel if you&apos;ll do the posting. Pick a group if members should talk to each other.
+          </li>
+          <li>Give it a name and a photo. Members see both before they join.</li>
+          <li>
+            If Telegram asks, choose <strong>Private</strong>. Flock sends each paying member their own invite, so you don&apos;t need a public link.
+          </li>
+          <li>You can skip adding members. Come back here and connect it.</li>
+        </ol>
+        <div className="flex flex-wrap items-center gap-3">
+          <Button onClick={() => setStage("connect")} data-testid="created-chat">
+            I&apos;ve made it, connect it
+          </Button>
+          <Button variant="ghost" onClick={() => setStage("ask")}>
+            <ArrowLeft aria-hidden /> Back
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-4">
       {status === "completed" && <Alert tone="success" title="Chat connected." />}
@@ -90,19 +143,24 @@ export function TelegramConnect({ botUsername }: { botUsername: string }) {
       {error && <Alert tone="danger" title={error} />}
       <p className="text-sm text-muted-foreground">Which kind of Telegram chat do members join?</p>
       <div className="grid gap-3 sm:grid-cols-2">
-        <Button variant="outline" className="h-auto flex-col items-start gap-1 p-4 text-left whitespace-normal" disabled={pendingStart} onClick={() => begin("channel")}>
+        <Button variant="outline" className={choiceClasses} disabled={pendingStart} onClick={() => begin("channel")}>
           <span className="flex items-center gap-2 font-medium">
             <Megaphone aria-hidden /> Private channel
           </span>
           <span className="text-xs font-normal text-muted-foreground">You post, members read.</span>
         </Button>
-        <Button variant="outline" className="h-auto flex-col items-start gap-1 p-4 text-left whitespace-normal" disabled={pendingStart} onClick={() => begin("group")}>
+        <Button variant="outline" className={choiceClasses} disabled={pendingStart} onClick={() => begin("group")}>
           <span className="flex items-center gap-2 font-medium">
             <MessagesSquare aria-hidden /> Private group
           </span>
           <span className="text-xs font-normal text-muted-foreground">Members can chat with each other.</span>
         </Button>
       </div>
+      <button type="button" className="w-fit text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground" onClick={() => setStage("create")}>
+        Don&apos;t have one yet? See how to start one.
+      </button>
     </div>
   );
 }
+
+const choiceClasses = "h-auto flex-col items-start gap-1 p-4 text-left whitespace-normal";

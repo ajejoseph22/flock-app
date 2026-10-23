@@ -123,7 +123,7 @@ export default async function SetupPage({ searchParams }: { searchParams: Promis
           ) : (
             <div className="flex flex-col gap-3">
               {s.community && (
-                <Link href={`/join/${s.community.slug}`} target="_blank" className="text-sm text-primary underline">
+                <Link href={`/join/${s.community.slug}`} target="_blank" className="text-sm text-accent underline">
                   Preview your page
                 </Link>
               )}
