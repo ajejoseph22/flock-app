@@ -110,5 +110,5 @@ Membership, invoice and audit rows are kept for the life of the community, for b
 ## Migrations
 
 - `pnpm db:generate` creates SQL from schema changes (drizzle-kit).
-- `pnpm db:migrate` applies them. It runs as Railway's pre-deploy command, so the new schema is in place before new code serves traffic.
+- `pnpm db:migrate` applies them. It runs as the one-shot `migrate` service before web and worker start on every deploy, so the new schema is in place before new code serves traffic.
 - Migrations must be backwards compatible with the previous release (add, backfill, then remove in a later release), because the worker and web deploy independently.

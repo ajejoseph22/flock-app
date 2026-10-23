@@ -15,7 +15,7 @@ Creators connect a Telegram chat and their own Stripe account, set a monthly pri
 | Web app, worker, database, bot logic | **Implemented** |
 | Unit, integration and E2E tests | **Tested** against local mocks of Stripe and Telegram |
 | Real Stripe test mode / real Telegram bot | **Not yet integrated**. See [docs/launch-checklist.md](docs/launch-checklist.md) |
-| Railway | **Not deployed** |
+| Hetzner + Coolify | **Not deployed**. Compose stack built and booted locally; see [infra/coolify/README.md](infra/coolify/README.md) |
 
 ## Stack
 
@@ -108,11 +108,13 @@ Tests need a local Postgres reachable as `postgres://postgres@127.0.0.1:5432`. O
 2. Deploy, then run `pnpm telegram:set-webhook` with production env. Telegram will call `/api/webhooks/telegram` with `X-Telegram-Bot-Api-Secret-Token`, and requests without the right secret get a 401.
 3. Creators add the bot to their private channel or supergroup as an admin with **Invite users via link** and **Ban users**. Flock verifies both rights and that the person connecting is an owner or admin of the chat.
 
-## Deployment (Railway)
+## Deployment (Hetzner + Coolify)
 
-Three services in one Railway project: managed Postgres, `web` (config `apps/web/railway.json`) and `worker` (config `apps/worker/railway.json`). Both app services build from the repo root.
+One Hetzner server runs Coolify, which builds [`infra/docker/Dockerfile`](infra/docker/Dockerfile) and runs [`docker-compose.coolify.yaml`](docker-compose.coolify.yaml) on every push to `main`: Postgres, a one-shot `migrate`, `web` (health `/api/health`), `worker` (health `/health`), and a one-shot that registers the Telegram webhook. `app.useflock.com` runs on Stripe test keys until launch.
 
-- `web` runs migrations as its pre-deploy step and health-checks `/api/health`.
-- `worker` health-checks `/health`.
+Setup, variables, the Stripe test-mode run and the launch-day switch to live: [infra/coolify/README.md](infra/coolify/README.md).
 
-Full variable list: `.env.example`. Step-by-step: [docs/launch-checklist.md](docs/launch-checklist.md).
+| Command | What it does |
+|---|---|
+| `pnpm stripe:webhooks --app-url <url> [--create]` | Check, or create, the three Stripe webhook destinations and print their signing secrets |
+| `pnpm deploy:check` (or `node tools/deploy-check.js` in the worker container) | Preflight: config, DB, Telegram bot and webhook, Stripe account and webhooks, health |

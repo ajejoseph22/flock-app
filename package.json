@@ -21,7 +21,9 @@
     "test:unit": "vitest run --project unit",
     "test:integration": "vitest run --project integration",
     "test:e2e": "playwright test",
-    "telegram:set-webhook": "tsx scripts/set-telegram-webhook.ts"
+    "telegram:set-webhook": "tsx scripts/set-telegram-webhook.ts",
+    "stripe:webhooks": "tsx scripts/stripe-webhooks.ts",
+    "deploy:check": "tsx scripts/deploy-check.ts"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

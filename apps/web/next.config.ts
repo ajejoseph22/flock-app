@@ -16,6 +16,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // The container image (infra/docker/Dockerfile) sets NEXT_OUTPUT=standalone to ship a traced, minimal server.
+  // `pnpm start` (next start) leaves it unset.
+  output: process.env.NEXT_OUTPUT === "standalone" ? "standalone" : undefined,
+  outputFileTracingRoot: resolve(import.meta.dirname, "../.."),
   poweredByHeader: false,
   transpilePackages: ["@flock/core", "@flock/db", "@flock/payments", "@flock/telegram"],
   serverExternalPackages: ["pg", "pino", "grammy", "stripe"],

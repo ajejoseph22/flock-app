@@ -9,7 +9,7 @@ import { createWorkerDeps } from "./deps";
 import { JobRunner } from "./runner";
 import { startScheduler } from "./scheduler";
 
-const VERSION = process.env.RAILWAY_GIT_COMMIT_SHA?.slice(0, 7) ?? "dev";
+const VERSION = process.env.GIT_SHA?.slice(0, 7) ?? "dev";
 
 async function main() {
   const config = getConfig();

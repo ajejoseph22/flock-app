@@ -7,7 +7,7 @@ Readiness terms (used throughout the docs):
 - **Implemented**: the code exists.
 - **Tested**: automated tests pass against local mocks of Stripe and Telegram. This is not the same as testing against the real providers.
 - **Integrated**: verified against the real Stripe test mode and a real Telegram bot.
-- **Deployed**: running on Railway.
+- **Deployed**: running on the Hetzner server via Coolify.
 - **Launch-ready**: integrated, deployed, legally reviewed and monitored.
 
 ## 1. Accounts and decisions (owner: Ayo)
@@ -32,8 +32,8 @@ Readiness terms (used throughout the docs):
   - Charges and Disputes (read)
   - Billing Portal
 
-  Set it as `STRIPE_SECRET_KEY` in Railway, never in the repo.
-- ☐ Webhook destinations. Copy each signing secret into the matching Railway variable.
+  Set it as `STRIPE_SECRET_KEY` in Coolify, never in the repo.
+- ☐ Webhook destinations. `pnpm stripe:webhooks --app-url https://app.useflock.com --create` creates all three (event lists in `packages/payments/src/webhook-destinations.ts`) and prints each signing secret once. Copy each into the matching Coolify variable.
 
   | Destination | URL | Events | Secret variable |
   |---|---|---|---|
@@ -65,21 +65,20 @@ Readiness terms (used throughout the docs):
   5. Forward the invite to a third account and check that it is declined.
   6. Cancel, then check that the bot removes the member when access ends.
 
-## 4. Railway
+## 4. Hosting (Hetzner + Coolify)
 
-- ☐ Project with three services: **Postgres** (managed; enable backups), **web**, and **worker**. Both web and worker build from the repo root. Set each service's "Config as code" path to `apps/web/railway.json` or `apps/worker/railway.json`.
-- ☐ Variables on web and worker. Both need the same set, from `.env.example`. Set:
-  - `FLOCK_ENV=production`
-  - `APP_URL=https://app.useflock.com`
-  - `TELEGRAM_MODE=webhook`
-  - `DATABASE_URL` as a reference to the Railway Postgres variable
+Step-by-step: [infra/coolify/README.md](../infra/coolify/README.md). One environment, `app.useflock.com`, on Stripe test keys until launch.
 
-  Leave unset: `TELEGRAM_API_ROOT` and `STRIPE_API_*` (they are ignored in production anyway).
-- ☐ Custom domain `app.useflock.com` on the **web** service. Add the DNS records Railway shows. HTTPS is provisioned automatically.
-- ☐ The first deploy runs `pnpm db:migrate` as pre-deploy. Confirm in the deploy logs.
-- ☐ Health checks: web `/api/health` (DB), worker `/health` (job loop and DB). Add an external uptime monitor on `https://app.useflock.com/api/health?worker=1`. It fails if no worker heartbeat in 2 minutes.
-- ☐ `ADMIN_TELEGRAM_USER_IDS` set to your Telegram user ID, so you can open `/admin`.
-- ☐ Log drain or alerts on `level>=50` (error) lines. Webhook signature failures log at warn.
+- ☐ Hetzner cx33 in Nuremberg with a firewall (22 from your IP, 80, 443) and server backups.
+- ☐ DNS: `app.useflock.com` and `coolify.useflock.com` → server IP.
+- ☐ Coolify installed, dashboard on `https://coolify.useflock.com`, setup ports closed, GitHub App installed on the repo.
+- ☐ Application from `docker-compose.coolify.yaml`, domain `https://app.useflock.com:3000` on `web`, auto-deploy on `main`.
+- ☐ Environment variables set in Coolify (table in the runbook). `APP_URL` is also a build variable.
+- ☐ First deploy: `migrate` prints `migrations applied`, `telegram-webhook` prints the webhook URL.
+- ☐ `node tools/deploy-check.js` in the worker container passes.
+- ☐ External uptime monitor on `https://app.useflock.com/api/health?worker=1`. It fails if no worker heartbeat in 2 minutes.
+- ☐ Alerts on `level>=50` (error) log lines. Webhook signature failures log at warn.
+- ☐ **Before live mode:** off-server database backups (pgBackRest → R2 from PR #1, or a Coolify-managed Postgres with S3 backups), then the launch-day switch in the runbook (live keys, new webhook secrets, empty database).
 
 ## 5. Pre-launch verification
 
@@ -87,7 +86,7 @@ Readiness terms (used throughout the docs):
 - ☐ CI runs the same commands on every PR. No workflow is included yet. Add one with a Postgres service.
 - ☐ Load sanity check: 50 concurrent checkouts against Stripe test mode. Check that webhook p95 ingest is under 300 ms and the job queue drains.
 - ☐ Restore a database backup into a scratch database once.
-- ☐ Rotate every secret that was ever pasted anywhere other than Railway.
+- ☐ Rotate every secret that was ever pasted anywhere other than Coolify.
 
 ## 6. Launch-day watch list
 

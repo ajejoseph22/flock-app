@@ -1,0 +1,16 @@
+# BuildKit reads <Dockerfile>.dockerignore, so this applies only to infra/docker/Dockerfile.
+**/node_modules
+**/.next
+**/dist
+**/*.tsbuildinfo
+.git
+.env
+.env.*
+!.env.example
+.pgdata
+test-results
+playwright-report
+coverage
+infra/tofu/.terraform
+infra/tofu/*.tfstate*
+infra/secrets
