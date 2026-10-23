@@ -46,10 +46,10 @@
 
 ## 6. Operational security
 
-- Secrets managed in Railway variables; separate Stripe Sandbox (test) and live keys per environment.
+- Secrets managed in Coolify environment variables; separate Stripe Sandbox (test) and live keys per environment.
 - Least-privilege bot rights: `can_invite_users`, `can_restrict_members` only.
 - Dependency updates via lockfile; `pnpm audit` in the launch checklist.
-- Database: Railway Postgres daily backups; migrations are additive and run as a pre-deploy step.
+- Database: Hetzner server backups while on test data; off-server Postgres backups are required before live mode (launch checklist §4). Migrations are additive and run as a one-shot before web and worker start.
 
 ## 7. Compliance notes and open questions
 

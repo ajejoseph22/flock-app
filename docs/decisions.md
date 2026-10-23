@@ -113,3 +113,13 @@ Seed data (`pnpm db:seed`) is flagged `is_demo` on users, creators and communiti
 ## D-017 — MRR definition
 
 Dashboard MRR = sum of the monthly price of subscriptions with an active entitlement, Stripe status `active`/`trialing`/`past_due`, and **not** set to cancel at period end. Grouped by currency, never converted or summed across currencies. It is shown "before Stripe fees".
+
+## D-018 — Hetzner + Coolify from day 1, one environment until launch
+
+Flock runs on one Hetzner server (cx33, Nuremberg, near Telegram's Bot API in Amsterdam) managed by self-hosted Coolify, instead of Railway. Coolify builds `infra/docker/Dockerfile` on the server and runs `docker-compose.coolify.yaml`: Postgres, a one-shot migration, web, worker, and a one-shot Telegram webhook registration. Pushes to `main` deploy.
+
+There is one environment, `app.useflock.com`. It runs on Stripe test keys until launch; at launch it switches to live keys and new webhook secrets with an empty database, because test-mode Stripe objects don't exist in live mode. A staging copy (same compose file, own domain, bot and test keys) gets added once real creators depend on production. Off-server database backups are required before live mode.
+
+The Stripe webhook destinations are created by `pnpm stripe:webhooks --create` rather than in the dashboard, so the snapshot endpoints are pinned to the SDK's API version and the event lists come from one place (`packages/payments/src/webhook-destinations.ts`).
+
+The OpenTofu/Caddy/pgBackRest setup in PR #1 stays as reference; its pgBackRest → R2 backups are one option for the pre-launch backup requirement.

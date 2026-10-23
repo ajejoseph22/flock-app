@@ -3,7 +3,7 @@
 ## 1. System overview
 
 ```
-                         ┌──────────────────────────── Railway ────────────────────────────┐
+                         ┌─────────────────── Hetzner server (Coolify) ────────────────────┐
   Browser ──HTTPS──▶     │  web (Next.js 16, Node runtime)          worker (Node 22)       │
   (creator/subscriber)   │  ├─ pages: marketing, dashboard, join   ├─ job runner (SKIP     │
                          │  ├─ server actions (mutations)          │  LOCKED + LISTEN)     │
@@ -106,12 +106,13 @@ Retry policy: exponential backoff `min(2^attempt × 5 s, 1 h)` ± 20% jitter; Te
 
 All environment variables are parsed by Zod in `packages/core/src/config.ts` at startup; the process refuses to start with invalid config. See `.env.example`.
 
-## 7. Deployment (Railway)
+## 7. Deployment (Hetzner + Coolify)
 
-- `web`: build `pnpm install --frozen-lockfile && pnpm --filter @flock/web... build`; pre-deploy `pnpm db:migrate`; start `pnpm --filter @flock/web start`; health `/api/health`.
-- `worker`: build `pnpm --filter @flock/worker... build`; start `node apps/worker/dist/main.js`; health `/health` on `$PORT`.
-- Postgres: Railway managed Postgres 16 with daily backups.
-- Domain: `app.useflock.com` → web service (the marketing site at `useflock.com` is hosted separately on Vercel) (CNAME/ALIAS per Railway instructions), HTTPS auto-provisioned.
+- One Hetzner server (Nuremberg) runs Coolify. Coolify builds `infra/docker/Dockerfile` (targets `web` and `worker`) and runs `docker-compose.coolify.yaml` on every push to `main`.
+- Order: `postgres` healthy → `migrate` (one-shot, `node migrate/dist/migrate.js`) → `web` (Next.js standalone, health `/api/health`) and `worker` (health `/health` on 8081) → `telegram-webhook` (one-shot).
+- Postgres 16 in the same compose project, on a named volume. Only `web` is exposed, through Coolify's Traefik proxy with Let's Encrypt.
+- Domain: `app.useflock.com` → web (the marketing site at `useflock.com` is hosted separately on Vercel).
+- Runbook: `infra/coolify/README.md`. D-018.
 
 ## 8. Scaling notes
 
