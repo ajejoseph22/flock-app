@@ -118,3 +118,7 @@ Setup, variables, the Stripe test-mode run and the launch-day switch to live: [i
 |---|---|
 | `pnpm stripe:webhooks --app-url <url> [--create]` | Check, or create, the three Stripe webhook destinations and print their signing secrets |
 | `pnpm deploy:check` (or `node tools/deploy-check.js` in the worker container) | Preflight: config, DB, Telegram bot and webhook, Stripe account and webhooks, health |
+
+## License
+
+[MIT](LICENSE) © 2026 Joseph Aje
